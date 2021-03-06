@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepare": "husky install",
+    "prepare": "npm run build",
     "test": "jest"
   },
   "repository": {
