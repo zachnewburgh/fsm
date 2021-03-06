@@ -1,6 +1,6 @@
 {
-  "name": "fsm",
-  "version": "1.0.0",
+  "name": "xfinite",
+  "version": "1.0.1",
   "description": "A package that enables the implementation of a Finite State Machine.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zachnewburgh/fsm"
+    "url": "git+https://github.com/zachnewburgh/xfinite.git"
   },
   "keywords": [],
   "author": "zachnewburgh",
@@ -28,5 +28,9 @@
   },
   "dependencies": {
     "typescript": "^4.2.3"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/zachnewburgh/xfinite/issues"
+  },
+  "homepage": "https://github.com/zachnewburgh/xfinite#readme"
 }

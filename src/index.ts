@@ -1,1 +1,3 @@
-export * from "./machine";
+import Machine from './machine';
+
+export default { Machine };
