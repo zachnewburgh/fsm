@@ -7,6 +7,7 @@ describe('Machine', () => {
   });
   it('should sayHello', () => {
     const machine = Machine;
-    machine.sayHello();
+    const message = machine.sayHello();
+    expect(message).toBe('Hello World!');
   });
 });
