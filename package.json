@@ -1,0 +1,32 @@
+{
+  "name": "fsm",
+  "version": "1.0.0",
+  "description": "A package that enables the implementation of a Finite State Machine.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachnewburgh/fsm"
+  },
+  "keywords": [],
+  "author": "zachnewburgh",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "typescript": "^4.2.3"
+  }
+}
