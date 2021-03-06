@@ -1,1 +1,2 @@
-export { default as Machine } from './machine';
+export * from './machine';
+export * from './state';
