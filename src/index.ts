@@ -1,1 +1,1 @@
-export default './machine';
+export { default as Machine } from './machine';
