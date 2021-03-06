@@ -1,5 +1,5 @@
 export default class Machine {
-  static HelloWorld(): string {
+  public static sayHello(): string {
     return 'Hello World!';
   }
 }
