@@ -1,6 +1,6 @@
 {
   "name": "xfinite",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A package that enables the implementation of a Finite State Machine.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
