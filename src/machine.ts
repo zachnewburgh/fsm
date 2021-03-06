@@ -9,7 +9,7 @@ export interface IMachine {
   removeState: (id: string) => IMachine;
   removeStates: (ids: string[]) => IMachine;
   getState: (id: string) => IState;
-  next: () => IMachine;
+  next: (input?: unknown) => IMachine;
   build: (id: string) => IMachine;
 }
 
@@ -39,8 +39,10 @@ export class Machine implements IMachine {
     return this;
   };
 
-  public next = (): IMachine => {
+  public next = (input?: unknown): IMachine => {
     const current = this.statesById[this.current];
+    const isInputCorrect = input === current.input;
+    if (!isInputCorrect) return this;
     const next = current?.next;
     this.current = next;
     return this;

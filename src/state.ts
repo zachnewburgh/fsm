@@ -1,6 +1,7 @@
 export interface IState {
   id: string;
   next: string;
+  input: unknown;
 }
 
 export class State implements IState {
@@ -8,9 +9,12 @@ export class State implements IState {
 
   private _next: string;
 
-  constructor(id: string, next: string) {
+  private _input: unknown;
+
+  constructor(id: string, next: string, input?: unknown) {
     this._id = id;
     this._next = next;
+    this._input = input;
   }
 
   get id(): string {
@@ -27,5 +31,13 @@ export class State implements IState {
 
   set next(next: string) {
     this._next = next;
+  }
+
+  get input(): unknown {
+    return this._input;
+  }
+
+  set input(input: unknown) {
+    this._input = input;
   }
 }

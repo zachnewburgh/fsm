@@ -3,7 +3,7 @@ import { IState, State } from './state';
 describe('State', () => {
   let state: IState;
   beforeEach(() => {
-    state = new State('foo', 'bar');
+    state = new State('foo', 'bar', 'baz');
   });
 
   it('should exist', () => {
@@ -20,5 +20,11 @@ describe('State', () => {
     const expected = 'baz';
     state.next = expected;
     expect(expected).toBe(state.next);
+  });
+
+  it('should set the input', () => {
+    const expected = 'qux';
+    state.input = expected;
+    expect(expected).toBe(state.input);
   });
 });
