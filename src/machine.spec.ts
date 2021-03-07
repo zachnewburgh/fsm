@@ -22,7 +22,7 @@ describe('Machine', () => {
   });
 
   it('should get the states as an array', () => {
-    const expected = machine.addStates(states).allStates;
+    const expected = machine.addStates(states).states;
     expect(expected).toStrictEqual(states);
   });
 
@@ -52,7 +52,7 @@ describe('Machine', () => {
     it('should remove many', () => {
       const expected = machine
         .addStates(states)
-        .removeStates([first.id, second.id]).allStates;
+        .removeStates([first.id, second.id]).states;
       expect(expected).not.toStrictEqual(states);
     });
   });

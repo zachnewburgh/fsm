@@ -5,8 +5,7 @@ type onChangeType = ((id: string) => void) | undefined;
 
 export interface IMachine {
   current: string;
-  statesById: Record<string, IState>;
-  allStates: IState[];
+  states: IState[];
   addState: (state: IState) => IMachine;
   addStates: (state: IState[]) => IMachine;
   removeState: (id: string) => IMachine;
@@ -32,7 +31,7 @@ export class Machine implements IMachine {
 
   public addState = (state: IState): IMachine => {
     const { id } = state;
-    this.statesById[id] = state;
+    this._statesById[id] = state;
     return this;
   };
 
@@ -42,7 +41,7 @@ export class Machine implements IMachine {
   };
 
   public removeState = (id: string): IMachine => {
-    delete this.statesById[id];
+    delete this._statesById[id];
     return this;
   };
 
@@ -52,7 +51,7 @@ export class Machine implements IMachine {
   };
 
   public next = (input: InputValue): IMachine => {
-    const current = this.statesById[this.current];
+    const current = this._statesById[this.current];
     const next = current.nextStateIdByInput[input];
     this.current = next?.nextStateId;
     return this;
@@ -68,21 +67,17 @@ export class Machine implements IMachine {
   }
 
   public set current(id: string) {
-    const nextState = this.statesById[id];
+    const nextState = this._statesById[id];
     if (nextState) {
       this._current = id;
       this.handleChange(id);
     }
   }
 
-  public getState = (id: string): IState => this.statesById[id];
+  public getState = (id: string): IState => this._statesById[id];
 
-  public get statesById(): Record<string, IState> {
-    return this._statesById;
-  }
-
-  public get allStates(): IState[] {
-    return Object.values(this.statesById);
+  public get states(): IState[] {
+    return Object.values(this._statesById);
   }
 
   private handleChange(id: string) {
