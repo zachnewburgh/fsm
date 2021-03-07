@@ -2,7 +2,7 @@
 
 This package enables the implementation of a [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine).
 
-> A **finite-state machine** (**FSM**) or **finite-state automaton** (**FSA**, plural: _automata_), **finite automaton**, or simply a **state machine**, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some inputs; the change from one state to another is called a **transition**. An FSM is defined by a list of its states, its initial state, and the inputs that trigger each transition. Finite-state machines are of two types—deterministic finite-state machines and non-deterministic finite-state machines. A deterministic finite-state machine can be constructed equivalent to any non-deterministic one.<a name="wiki"><sup>1</sup></a>
+> A **finite-state machine** (**FSM**) or **finite-state automaton** (**FSA**, plural: _automata_), **finite automaton**, or simply a **state machine**, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some inputs; the change from one state to another is called a **transition**. An FSM is defined by a list of its states, its initial state, and the inputs that trigger each transition. Finite-state machines are of two types—deterministic finite-state machines and non-deterministic finite-state machines. A deterministic finite-state machine can be constructed equivalent to any non-deterministic one.<sup>[1](#wiki)</sup>
 
 | Published                                                                                                      | Size (repository)                                                                 | Size (minified)                                                                   |
 | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
@@ -16,6 +16,7 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 
 - [Getting Started](#getting-started)
 - [License](#license)
+- [References](#references)
 
 ## Getting Started
 
@@ -95,6 +96,6 @@ turnstile.next(INPUT.push) // console: 'Previous: locked | Current: unlocked'
 
 xfinite is [ISC licensed](./LICENSE).
 
-### Footnotes
+## References
 
-<sup>[1](#wiki)</sup> [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine)
+<a name="wiki"><sup>1</sup></a> [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine)
