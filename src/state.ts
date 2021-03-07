@@ -1,20 +1,28 @@
+import { IInput } from './input';
+
 export interface IState {
   id: string;
-  next: string;
-  input: unknown;
+  nextStateId: string;
+  nextStateIdByInput: Record<number | string, IInput>;
+  allInputs: IInput[];
+  addInput: (input: IInput) => IState;
+  addInputs: (inputs: IInput[]) => IState;
+  removeInput: (value: number | string) => IState;
+  removeInputs: (values: (number | string)[]) => IState;
 }
 
 export class State implements IState {
   private _id: string;
 
-  private _next: string;
+  private _nextStateId: string;
 
-  private _input: unknown;
+  private _nextStateIdByInput: Record<number | string, IInput>;
 
-  constructor(id: string, next: string, input?: unknown) {
+  constructor(id: string, next: string, inputs: IInput[]) {
     this._id = id;
-    this._next = next;
-    this._input = input;
+    this._nextStateId = next;
+    this._nextStateIdByInput = {};
+    this.addInputs(inputs);
   }
 
   get id(): string {
@@ -25,19 +33,40 @@ export class State implements IState {
     this._id = id;
   }
 
-  get next(): string {
-    return this._next;
+  get nextStateId(): string {
+    return this._nextStateId;
   }
 
-  set next(next: string) {
-    this._next = next;
+  set nextStateId(next: string) {
+    this._nextStateId = next;
   }
 
-  get input(): unknown {
-    return this._input;
+  get nextStateIdByInput(): Record<number | string, IInput> {
+    return this._nextStateIdByInput;
   }
 
-  set input(input: unknown) {
-    this._input = input;
+  get allInputs(): IInput[] {
+    return Object.values(this._nextStateIdByInput);
   }
+
+  public addInput = (input: IInput): IState => {
+    const { value } = input;
+    this.nextStateIdByInput[value] = input;
+    return this;
+  };
+
+  public addInputs = (inputs: IInput[]): IState => {
+    inputs.forEach(this.addInput);
+    return this;
+  };
+
+  public removeInput = (value: number | string): IState => {
+    delete this.nextStateIdByInput[value];
+    return this;
+  };
+
+  public removeInputs = (values: (number | string)[]): IState => {
+    values.forEach(this.removeInput);
+    return this;
+  };
 }
