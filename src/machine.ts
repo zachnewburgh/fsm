@@ -52,7 +52,7 @@ export class Machine implements IMachine {
 
   public next = (input: InputValue): IMachine => {
     const active = this._statesById[this.active];
-    const next = active.nextStateIdByInput[input];
+    const next = active.getInput(input);
     this.active = next?.nextStateId;
     return this;
   };

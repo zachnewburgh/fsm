@@ -32,34 +32,31 @@ describe('State', () => {
     });
 
     it('add one', () => {
-      const expected = state.addInput(first).nextStateIdByInput;
-      expect(expected).toStrictEqual({ [first.value]: first });
+      const expected = state.addInput(first).getInput(first.value);
+      expect(expected).toBe(first);
     });
 
     it('add many', () => {
-      const expected = state.addInputs([first, second]).nextStateIdByInput;
-      expect(expected).toStrictEqual({
-        [first.value]: first,
-        [second.value]: second,
-      });
+      const expected = state.addInputs([first, second]).inputs;
+      expect(expected).toStrictEqual([first, second]);
     });
 
     it('remove one', () => {
       state.addInputs([first, second]).removeInput(first.value);
-      const expected = state.nextStateIdByInput;
-      expect(expected).toStrictEqual({ [second.value]: second });
+      const expected = state.inputs;
+      expect(expected).toStrictEqual([second]);
     });
 
     it('remove many', () => {
       state
         .addInputs([first, second])
         .removeInputs([first.value, second.value]);
-      const expected = state.nextStateIdByInput;
-      expect(expected).toStrictEqual({});
+      const expected = state.inputs;
+      expect(expected).toStrictEqual([]);
     });
 
     it('get all', () => {
-      const expected = state.addInputs([first, second]).allInputs;
+      const expected = state.addInputs([first, second]).inputs;
       expect(expected).toStrictEqual([first, second]);
     });
   });
