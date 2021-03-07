@@ -4,7 +4,7 @@ import { IState } from './state';
 type onChangeType = ((id: string) => void) | undefined;
 
 export interface IMachine {
-  current: string;
+  active: string;
   states: IState[];
   addState: (state: IState) => IMachine;
   addStates: (state: IState[]) => IMachine;
@@ -17,14 +17,14 @@ export interface IMachine {
 }
 
 export class Machine implements IMachine {
-  private _current: string;
+  private _active: string;
 
   private _statesById: Record<string, IState> = {};
 
   private _onChange: onChangeType;
 
-  constructor(current = '', states: IState[] = [], onChange?: onChangeType) {
-    this._current = current;
+  constructor(active = '', states: IState[] = [], onChange?: onChangeType) {
+    this._active = active;
     this.addStates(states);
     this._onChange = onChange;
   }
@@ -51,25 +51,25 @@ export class Machine implements IMachine {
   };
 
   public next = (input: InputValue): IMachine => {
-    const current = this._statesById[this.current];
-    const next = current.nextStateIdByInput[input];
-    this.current = next?.nextStateId;
+    const active = this._statesById[this.active];
+    const next = active.nextStateIdByInput[input];
+    this.active = next?.nextStateId;
     return this;
   };
 
   public build = (id: string): IMachine => {
-    this.current = id;
+    this.active = id;
     return this;
   };
 
-  public get current(): string {
-    return this._current;
+  public get active(): string {
+    return this._active;
   }
 
-  public set current(id: string) {
+  public set active(id: string) {
     const nextState = this._statesById[id];
     if (nextState) {
-      this._current = id;
+      this._active = id;
       this.handleChange(id);
     }
   }

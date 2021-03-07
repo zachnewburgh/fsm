@@ -61,27 +61,27 @@ describe('Machine', () => {
     it('should get the next state with the correct input', () => {
       const goodInput = 0;
       machine.addStates(states);
-      const expected = machine.build(first.id).next(goodInput).current;
+      const expected = machine.build(first.id).next(goodInput).active;
       expect(expected).toBe(second.id);
     });
 
     it('should get the next state with a second input', () => {
       const goodInput = 1;
       machine.addStates(states);
-      const expected = machine.build(first.id).next(goodInput).current;
+      const expected = machine.build(first.id).next(goodInput).active;
       expect(expected).toBe(third.id);
     });
 
     it('should not get the next state without the correct input', () => {
       const badInput = 2;
       machine.addStates(states);
-      const expected = machine.build(first.id).next(badInput).current;
+      const expected = machine.build(first.id).next(badInput).active;
       expect(expected).toBe(first.id);
     });
 
     it('should handle multiple inputs', () => {
       machine.addStates(states);
-      const expected = machine.build(first.id).next(1).next(0).current;
+      const expected = machine.build(first.id).next(1).next(0).active;
       expect(expected).toBe(first.id);
     });
 
@@ -95,13 +95,13 @@ describe('Machine', () => {
   });
 
   describe('Build', () => {
-    it('should set the current state', () => {
-      const expected = machine.addState(first).build(first.id).current;
+    it('should set the active state', () => {
+      const expected = machine.addState(first).build(first.id).active;
       expect(expected).toBe(first.id);
     });
 
-    it('should not set the current state if unavailable', () => {
-      const expected = machine.addState(first).build('baz').current;
+    it('should not set the active state if unavailable', () => {
+      const expected = machine.addState(first).build('baz').active;
       expect(expected).toBe('');
     });
   });
