@@ -4,9 +4,9 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 
 > A **finite-state machine** (**FSM**) or **finite-state automaton** (**FSA**, plural: _automata_), **finite automaton**, or simply a **state machine**, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some inputs; the change from one state to another is called a **transition**. An FSM is defined by a list of its states, its initial state, and the inputs that trigger each transition. Finite-state machines are of two types—deterministic finite-state machines and non-deterministic finite-state machines. A deterministic finite-state machine can be constructed equivalent to any non-deterministic one.<a name="wiki"><sup>1</sup></a>
 
-| Version                                                    | Size                                                                              |
-| ---------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| <img alt="npm" src="https://img.shields.io/npm/v/xfinite"> | ![GitHub repo size](https://img.shields.io/github/repo-size/zachnewburgh/xfinite) |
+| Published                                                                                                      | Size (repository)                                                                 | Size (minified)                                                                   |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| <a href="https://www.npmjs.com/package/xfinite"><img alt="npm" src="https://img.shields.io/npm/v/xfinite"></a> | ![GitHub repo size](https://img.shields.io/github/repo-size/zachnewburgh/xfinite) | <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/xfinite"> |
 
 | Statements                                                                  | Branches                                                                  | Functions                                                                  | Lines                                                                  |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -14,23 +14,26 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 
 ## Table of Contents
 
-- [Installation](#installation)
 - [Getting Started](#getting-started)
 - [License](#license)
 
-## Installation
+## Getting Started
+
+### Install the Package
 
 ```bash
   npm i xfinite
 ```
 
-## Getting Started
+### Add the Imports
 
 ```bash
   import { Machine, State, Input } from 'xfinite';
+```
 
-  // Define the inputs.
+### Define the Inputs
 
+```bash
   const INPUT = {
     coin: 0.25,
     push: 'push',
@@ -38,9 +41,11 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 
   const coin = new Input(INPUT.coin, STATE.unlocked);
   const push = new Input(INPUT.push, STATE.locked);
+```
 
-  // Define the states.
+### Define the States
 
+```bash
   const STATE = {
     locked: 'locked',
     unlocked: 'unlocked',
@@ -48,28 +53,42 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 
   const locked = new State(STATE.locked, [coin]);
   const unlocked = new State(STATE.unlocked, [push]);
+```
 
-  // Initialize the machine.
+### Initialize the Machine
 
+```bash
   const turnstile = new Machine().addStates([locked, unlocked]).build(STATE.locked);
+```
 
-  // Execute the machine.
+### Execute the Machine
 
+```bash
   turnstile.next(INPUT.coin).active; // 'unlocked'
+
   turnstile.next(INPUT.push).active; // 'locked'
+
   turnstile.next(INPUT.push).active; // 'locked'
+
   turnstile.next().active;           // 'locked'
+
   turnstile.next(INPUT.coin).active; // 'unlocked'
+
   turnstile.next('foo').active;      // 'unlocked'
+
   turnstile.next(INPUT.push).active; // 'locked'
+```
 
-  // Listen to state changes.
+### Listen to State Changes
 
-  const onStateChange = (previous: string, current: string) => ({ previous, current });
-  turnstile.onStateChange = onStateChange;
+```bash
+const onStateChange = (previous: string, current: string) => {
+  console.log(`Previous: ${previous} | Current: ${current}`);
+};
+turnstile.onStateChange = onStateChange;
 
-  turnstile.active // 'locked'
-  turnstile.next(INPUT.push) // onStateChange returns { previous: 'locked', current: 'unlocked' }
+turnstile.active // 'locked'
+turnstile.next(INPUT.push) // console: 'Previous: locked | Current: unlocked'
 ```
 
 ## License
