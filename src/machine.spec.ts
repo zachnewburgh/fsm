@@ -86,11 +86,13 @@ describe('Machine', () => {
     });
 
     it('should call onChange when it is set', () => {
-      const spy = jest.spyOn(console, 'log');
+      // eslint-disable-next-line no-console
+      console.log = jest.fn();
       // eslint-disable-next-line no-console
       machine.addStates(states).onChange = console.log;
       machine.build(first.id).next(1);
-      expect(spy).toHaveBeenCalledWith('qux');
+      // eslint-disable-next-line no-console
+      expect(console.log).toHaveBeenCalledWith('qux');
     });
   });
 
