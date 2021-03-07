@@ -1,23 +1,25 @@
+export type InputValue = number | string;
+
 export interface IInput {
-  value: number | string;
+  value: InputValue;
   nextStateId: string;
 }
 
 export class Input implements IInput {
-  private _value: number | string;
+  private _value: InputValue;
 
   private _nextStateId: string;
 
-  constructor(value: number | string, nextStateId: string) {
+  constructor(value: InputValue, nextStateId: string) {
     this._value = value;
     this._nextStateId = nextStateId;
   }
 
-  get value(): number | string {
+  get value(): InputValue {
     return this._value;
   }
 
-  set value(value: number | string) {
+  set value(value: InputValue) {
     this._value = value;
   }
 

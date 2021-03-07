@@ -1,14 +1,14 @@
-import { IInput } from './input';
+import { IInput, InputValue } from './input';
 
 export interface IState {
   id: string;
   nextStateId: string;
-  nextStateIdByInput: Record<number | string, IInput>;
+  nextStateIdByInput: Record<InputValue, IInput>;
   allInputs: IInput[];
   addInput: (input: IInput) => IState;
   addInputs: (inputs: IInput[]) => IState;
-  removeInput: (value: number | string) => IState;
-  removeInputs: (values: (number | string)[]) => IState;
+  removeInput: (value: InputValue) => IState;
+  removeInputs: (values: InputValue[]) => IState;
 }
 
 export class State implements IState {
@@ -16,7 +16,7 @@ export class State implements IState {
 
   private _nextStateId: string;
 
-  private _nextStateIdByInput: Record<number | string, IInput>;
+  private _nextStateIdByInput: Record<InputValue, IInput>;
 
   constructor(id: string, next: string, inputs: IInput[]) {
     this._id = id;
@@ -41,7 +41,7 @@ export class State implements IState {
     this._nextStateId = next;
   }
 
-  get nextStateIdByInput(): Record<number | string, IInput> {
+  get nextStateIdByInput(): Record<InputValue, IInput> {
     return this._nextStateIdByInput;
   }
 
@@ -60,12 +60,12 @@ export class State implements IState {
     return this;
   };
 
-  public removeInput = (value: number | string): IState => {
+  public removeInput = (value: InputValue): IState => {
     delete this.nextStateIdByInput[value];
     return this;
   };
 
-  public removeInputs = (values: (number | string)[]): IState => {
+  public removeInputs = (values: InputValue[]): IState => {
     values.forEach(this.removeInput);
     return this;
   };

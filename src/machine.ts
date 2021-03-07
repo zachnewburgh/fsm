@@ -1,4 +1,7 @@
+import { InputValue } from './input';
 import { IState } from './state';
+
+type onChangeType = ((id: string) => void) | undefined;
 
 export interface IMachine {
   current: string;
@@ -9,14 +12,23 @@ export interface IMachine {
   removeState: (id: string) => IMachine;
   removeStates: (ids: string[]) => IMachine;
   getState: (id: string) => IState;
-  next: (input: number | string) => IMachine;
+  next: (input: InputValue) => IMachine;
   build: (id: string) => IMachine;
+  onChange: onChangeType;
 }
 
 export class Machine implements IMachine {
-  private _current = '';
+  private _current: string;
 
   private _statesById: Record<string, IState> = {};
+
+  private _onChange: onChangeType;
+
+  constructor(current = '', states: IState[] = [], onChange?: onChangeType) {
+    this._current = current;
+    this.addStates(states);
+    this._onChange = onChange;
+  }
 
   public addState = (state: IState): IMachine => {
     const { id } = state;
@@ -39,7 +51,7 @@ export class Machine implements IMachine {
     return this;
   };
 
-  public next = (input: number | string): IMachine => {
+  public next = (input: InputValue): IMachine => {
     const current = this.statesById[this.current];
     const next = current.nextStateIdByInput[input];
     this.current = next?.nextStateId;
@@ -57,7 +69,10 @@ export class Machine implements IMachine {
 
   public set current(id: string) {
     const nextState = this.statesById[id];
-    if (nextState) this._current = id;
+    if (nextState) {
+      this._current = id;
+      this.handleChange(id);
+    }
   }
 
   public getState = (id: string): IState => this.statesById[id];
@@ -68,5 +83,15 @@ export class Machine implements IMachine {
 
   public get allStates(): IState[] {
     return Object.values(this.statesById);
+  }
+
+  private handleChange(id: string) {
+    if (typeof this._onChange === 'function') {
+      this._onChange(id);
+    }
+  }
+
+  public set onChange(fn: onChangeType) {
+    this._onChange = fn;
   }
 }
