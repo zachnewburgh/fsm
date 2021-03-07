@@ -11,9 +11,9 @@ describe('Machine', () => {
 
   beforeEach(() => {
     machine = new Machine();
-    first = new State('foo', 'bar', [new Input(0, 'bar'), new Input(1, 'qux')]);
-    second = new State('bar', 'baz', [new Input(0, 'qux')]);
-    third = new State('qux', 'quux', [new Input(0, 'foo')]);
+    first = new State('foo', [new Input(0, 'bar'), new Input(1, 'qux')]);
+    second = new State('bar', [new Input(0, 'qux')]);
+    third = new State('qux', [new Input(0, 'foo')]);
     states = [first, second, third];
   });
 
@@ -89,10 +89,10 @@ describe('Machine', () => {
       // eslint-disable-next-line no-console
       console.log = jest.fn();
       // eslint-disable-next-line no-console
-      machine.addStates(states).onChange = console.log;
+      machine.addStates(states).onStateChange = console.log;
       machine.build(first.id).next(1);
       // eslint-disable-next-line no-console
-      expect(console.log).toHaveBeenCalledWith('qux');
+      expect(console.log).toHaveBeenCalledWith('foo', 'qux');
     });
   });
 

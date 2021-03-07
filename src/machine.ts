@@ -1,7 +1,9 @@
 import { InputValue } from './input';
 import { IState } from './state';
 
-type onChangeType = ((id: string) => void) | undefined;
+type onStateChangeProps =
+  | ((previous: string, current: string) => void)
+  | undefined;
 
 export interface IMachine {
   active: string;
@@ -13,7 +15,7 @@ export interface IMachine {
   getState: (id: string) => IState;
   next: (input: InputValue) => IMachine;
   build: (id: string) => IMachine;
-  onChange: onChangeType;
+  onStateChange: onStateChangeProps;
 }
 
 export class Machine implements IMachine {
@@ -21,12 +23,16 @@ export class Machine implements IMachine {
 
   private _statesById: Record<string, IState> = {};
 
-  private _onChange: onChangeType;
+  private _onStateChange: onStateChangeProps;
 
-  constructor(active = '', states: IState[] = [], onChange?: onChangeType) {
+  constructor(
+    active = '',
+    states: IState[] = [],
+    onStateChange?: onStateChangeProps,
+  ) {
     this._active = active;
     this.addStates(states);
-    this._onChange = onChange;
+    this._onStateChange = onStateChange;
   }
 
   public addState = (state: IState): IMachine => {
@@ -54,6 +60,7 @@ export class Machine implements IMachine {
     const active = this._statesById[this.active];
     const next = active.getInput(input);
     this.active = next?.nextStateId;
+    this.handleStateChanged(active.id, this.active);
     return this;
   };
 
@@ -68,10 +75,7 @@ export class Machine implements IMachine {
 
   public set active(id: string) {
     const nextState = this._statesById[id];
-    if (nextState) {
-      this._active = id;
-      this.handleChange(id);
-    }
+    if (nextState) this._active = id;
   }
 
   public getState = (id: string): IState => this._statesById[id];
@@ -80,13 +84,14 @@ export class Machine implements IMachine {
     return Object.values(this._statesById);
   }
 
-  private handleChange(id: string) {
-    if (typeof this._onChange === 'function') {
-      this._onChange(id);
+  private handleStateChanged(previous: string, current: string) {
+    if (previous === current) return;
+    if (typeof this._onStateChange === 'function') {
+      this._onStateChange(previous, current);
     }
   }
 
-  public set onChange(fn: onChangeType) {
-    this._onChange = fn;
+  public set onStateChange(fn: onStateChangeProps) {
+    this._onStateChange = fn;
   }
 }

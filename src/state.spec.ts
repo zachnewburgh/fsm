@@ -4,7 +4,7 @@ import { IState, State } from './state';
 describe('State', () => {
   let state: IState;
   beforeEach(() => {
-    state = new State('foo', 'bar', []);
+    state = new State('foo', []);
   });
 
   it('should exist', () => {
@@ -15,12 +15,6 @@ describe('State', () => {
     const expected = 'baz';
     state.id = expected;
     expect(expected).toBe(state.id);
-  });
-
-  it('should set the nextStateId', () => {
-    const expected = 'baz';
-    state.nextStateId = expected;
-    expect(expected).toBe(state.nextStateId);
   });
 
   describe('Input', () => {

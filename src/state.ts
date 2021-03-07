@@ -3,7 +3,6 @@ import { IInput, InputValue } from './input';
 export interface IState {
   id: string;
   inputs: IInput[];
-  nextStateId: string;
   addInput: (input: IInput) => IState;
   addInputs: (inputs: IInput[]) => IState;
   removeInput: (value: InputValue) => IState;
@@ -14,13 +13,10 @@ export interface IState {
 export class State implements IState {
   private _id: string;
 
-  private _nextStateId: string;
-
   private _nextStateIdByInput: Record<InputValue, IInput>;
 
-  constructor(id: string, next: string, inputs: IInput[]) {
+  constructor(id: string, inputs: IInput[]) {
     this._id = id;
-    this._nextStateId = next;
     this._nextStateIdByInput = {};
     this.addInputs(inputs);
   }
@@ -31,14 +27,6 @@ export class State implements IState {
 
   set id(id: string) {
     this._id = id;
-  }
-
-  get nextStateId(): string {
-    return this._nextStateId;
-  }
-
-  set nextStateId(next: string) {
-    this._nextStateId = next;
   }
 
   get inputs(): IInput[] {
