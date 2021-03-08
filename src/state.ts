@@ -21,15 +21,15 @@ export class State implements IState {
     this.addInputs(inputs);
   }
 
-  get id(): string {
+  public get id(): string {
     return this._id;
   }
 
-  set id(id: string) {
+  public set id(id: string) {
     this._id = id;
   }
 
-  get inputs(): IInput[] {
+  public get inputs(): IInput[] {
     return Object.values(this._nextStateIdByInput);
   }
 

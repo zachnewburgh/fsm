@@ -15,19 +15,19 @@ export class Input implements IInput {
     this._nextStateId = nextStateId;
   }
 
-  get value(): InputValue {
+  public get value(): InputValue {
     return this._value;
   }
 
-  set value(value: InputValue) {
+  public set value(value: InputValue) {
     this._value = value;
   }
 
-  get nextStateId(): string {
+  public get nextStateId(): string {
     return this._nextStateId;
   }
 
-  set nextStateId(nextStateId: string) {
+  public set nextStateId(nextStateId: string) {
     this._nextStateId = nextStateId;
   }
 }
