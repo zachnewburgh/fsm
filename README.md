@@ -59,6 +59,12 @@ This package enables the implementation of a [Finite State Machine](https://en.w
 ### Initialize the Machine
 
 ```bash
+  const turnstile = new Machine(STATE.locked, [locked, unlocked]);
+```
+
+Or
+
+```bash
   const turnstile = new Machine().addStates([locked, unlocked]).build(STATE.locked);
 ```
 
