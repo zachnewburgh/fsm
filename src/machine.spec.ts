@@ -104,7 +104,7 @@ describe('Machine', () => {
 
     it('should not set the active state if unavailable', () => {
       const expected = machine.addState(first).build('baz').active;
-      expect(expected).toBe('');
+      expect(expected).toBeUndefined();
     });
   });
 });
