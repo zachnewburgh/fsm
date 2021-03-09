@@ -1,16 +1,16 @@
 export type InputValue = number | string;
 
-export interface IInput {
+export interface IInput<T = string> {
   value: InputValue;
-  nextStateId: string;
+  nextStateId: T;
 }
 
-export class Input implements IInput {
+export class Input<T> implements IInput<T> {
   private _value: InputValue;
 
-  private _nextStateId: string;
+  private _nextStateId: T;
 
-  constructor(value: InputValue, nextStateId: string) {
+  constructor(value: InputValue, nextStateId: T) {
     this._value = value;
     this._nextStateId = nextStateId;
   }
@@ -23,11 +23,11 @@ export class Input implements IInput {
     this._value = value;
   }
 
-  public get nextStateId(): string {
+  public get nextStateId(): T {
     return this._nextStateId;
   }
 
-  public set nextStateId(nextStateId: string) {
+  public set nextStateId(nextStateId: T) {
     this._nextStateId = nextStateId;
   }
 }
